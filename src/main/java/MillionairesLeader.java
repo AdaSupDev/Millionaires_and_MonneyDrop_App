@@ -2,7 +2,7 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Scanner;
 
-public class MillionairesLeader extends Director implements Mechanisms {
+public class MillionairesLeader extends Director {
 
     @Override
     public void welcomePlayer(String name) {
@@ -48,7 +48,7 @@ public class MillionairesLeader extends Director implements Mechanisms {
         System.out.println(Q.content);
         Object[] arr = answerSet.toArray();
         char letter = 'A';
-        for (int i = 0; i < arr.length; i++) {
+        for (int i = 0; i < 4; i++) {
             System.out.println(letter + ". " + arr[i]);
             letter++;
         }
@@ -164,7 +164,7 @@ public class MillionairesLeader extends Director implements Mechanisms {
         }
         int[] numArr = new int[arr.length];
         for (int i = 0; i < numArr.length; i++) {
-            if(arr[i]!= null) {
+            if (arr[i] != null) {
                 numArr[i] = num[i] * 70 / sum;
             } else {
                 numArr[i] = 0;
@@ -175,7 +175,7 @@ public class MillionairesLeader extends Director implements Mechanisms {
             if (arr[i] != null && arr[i].equals(Q.correctAnswer)) {
                 numArr[i] += 30;
             }
-            if(arr[i] != null) {
+            if (arr[i] != null) {
                 System.out.println(letter + ". " + arr[i] + ": " + numArr[i] + " %");
             }
             letter++;

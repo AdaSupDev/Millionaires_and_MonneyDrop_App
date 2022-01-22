@@ -1,9 +1,8 @@
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Random;
 import java.util.Scanner;
 
-public class MoneyDropLeader extends Director implements Mechanisms {
+public class MoneyDropLeader extends Director {
 
     @Override
     public void welcomePlayer(String name) {
@@ -52,7 +51,7 @@ public class MoneyDropLeader extends Director implements Mechanisms {
         System.out.println(Q.content);
         Object[] arr = answerSet.toArray();
         char letter = 'A';
-        for (int i = 0; i < arr.length; i++) {
+        for (int i = 0; i < 4; i++) {
             System.out.println(letter + ". " + arr[i]);
             letter++;
         }
@@ -63,13 +62,13 @@ public class MoneyDropLeader extends Director implements Mechanisms {
         letter = 'A';
         Scanner scanner = new Scanner(System.in);
         for (int i = 0; i < traps.length - 1; i++) {
-           do {
-               System.out.println("Na odpowiedź " + letter + " stawiasz:");
-               traps[i] = scanner.nextInt();
-               if (traps[i] > account - counter){
-                   System.out.println("Nie masz tyle forsy!");
-               }
-           } while (traps[i] > account - counter); //!
+            do {
+                System.out.println("Na odpowiedź " + letter + " stawiasz:");
+                traps[i] = scanner.nextInt();
+                if (traps[i] > account - counter) {
+                    System.out.println("Nie masz tyle forsy!");
+                }
+            } while (traps[i] > account - counter); //!
             letter++;
             counter += traps[i];
             System.out.println("Zostało Ci " + (account - counter) + " zł.");
@@ -86,13 +85,13 @@ public class MoneyDropLeader extends Director implements Mechanisms {
             traps[3] = account - counter;
         }
         for (int i = 0; i < arr.length; i++) {
-            if(arr[i].equals(Q.correctAnswer)){
+            if (arr[i].equals(Q.correctAnswer)) {
                 account = traps[i];
             }
         }
         System.out.println("Na D postawiłeś " + traps[3] + " zł.");
         System.out.println();
-        System.out.println("Wygrywasz.... " + account + " zł." );
+        System.out.println("Wygrywasz.... " + account + " zł.");
         return account;
     }
 
