@@ -15,53 +15,41 @@ public class StartMain {
             num = Integer.parseInt(scanner.nextLine()); // Avoids the problem on line 31
         } while (!(num == 1 || num == 2));
 
-
-
-
+        Director leader;
         if (num == 1) {
-            MillionairesLeader millionairesLeader = new MillionairesLeader();
-            millionairesLeader.welcomePlayer(nameOfPlayer);
-            int numberOfRound = 0;
-            boolean isTrue = true;
-
-            while (isTrue && numberOfRound < 4) { //Set number of available levels!
-                millionairesLeader.introQuestion(numberOfRound, player);
-                Question nextQuestion = millionairesLeader.drawQuestion(numberOfRound, millionairesLeader.arrayOfQuestion);
-                isTrue = millionairesLeader.askQuestion(nextQuestion, player); // Core of round <-------------------
-                if (isTrue && numberOfRound < 2) {
-                    System.out.println("Następne pytanie? Wciśnij Enter!");
-                    System.out.println();
-                    scanner.nextLine();
-                }
-                numberOfRound++;
-            }
-            if (isTrue) {
-                System.out.println("Gratulacje, jesteś MILIONEREM");
-            } else {
-                System.out.println("Niestety, to była błędna odpowiedź...");
-            }
+            leader = new MillionairesLeader();
         } else {
-            MoneyDropLeader moneyDropLeader = new MoneyDropLeader();
-            moneyDropLeader.welcomePlayer(nameOfPlayer);
-            int numberOfRound = 0;
+            leader = new MoneyDropLeader();
+        }
 
-            while (numberOfRound < 4 && player.getAccount() > 0) {  //Set number of available levels!
-                moneyDropLeader.introQuestion(numberOfRound, player);
-                Question nextQuestion = moneyDropLeader.drawQuestion(numberOfRound, moneyDropLeader.arrayOfQuestion);
-                player.setAccount(moneyDropLeader.askQuestionDrop(nextQuestion, player));
-                if (player.getAccount() > 0 && numberOfRound < 3) { //Set number of available levels - 1!
-                    System.out.println("Następne pytanie? Wciśnij Enter!");
-                    System.out.println();
-                    scanner.nextLine();
-                }
-                numberOfRound++;
-            }
-            if (player.getAccount() > 0) {
-                System.out.println("Gratulacje, Twoja nagroda to " + player.getAccount() + " zł!!!");
+        leader.welcomePlayer(nameOfPlayer);
+        int numberOfRound = 0;
+        boolean isTrue = true;
+
+        while (isTrue && numberOfRound < 4) { //Set number of available levels!
+            leader.introQuestion(numberOfRound, player);
+            Question nextQuestion = leader.drawQuestion(numberOfRound, leader.arrayOfQuestion);
+            if (num == 1) {
+                isTrue = ((MillionairesLeader) leader).askQuestion(nextQuestion, player); // Core of round <-------------------
             } else {
-                System.out.println("Niestety, to koniec gry...");
+                player.setAccount(((MoneyDropLeader) leader).askQuestionMoneyDrop(nextQuestion, player));
             }
-
+            if (player.getAccount() == 0) {
+                isTrue = false;
+            }
+            if (isTrue && numberOfRound < 3) { //Set number of available levels - 1!
+                System.out.println("Następne pytanie? Wciśnij Enter!");
+                System.out.println();
+                scanner.nextLine();
+            }
+            numberOfRound++;
+        }
+        if (num == 1 && isTrue) {
+            System.out.println("Gratulacje, jesteś MILIONEREM");
+        } else if (num != 1 && player.getAccount() > 0) {
+            System.out.println("Gratulacje, Twoja nagroda to " + player.getAccount() + " zł!!!");
+        } else {
+            System.out.println("Niestety, to była błędna odpowiedź...");
         }
 
     }

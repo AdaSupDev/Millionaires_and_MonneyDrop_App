@@ -38,6 +38,7 @@ public class MillionairesLeader extends Director {
         return Q[numberOfRound][randomNumber];
     }
 
+
     public boolean askQuestion(Question Q, Player p) {
         HashSet<String> answerSet = new HashSet<>(); //elements will be added in random order
         answerSet.add(Q.correctAnswer);

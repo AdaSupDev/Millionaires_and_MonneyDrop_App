@@ -27,4 +27,6 @@ public abstract  class Director {
     public abstract Question drawQuestion(int numberOfRound, Question[][] Q);
 
 
+   // public abstract boolean askQuestion(Question nextQuestion, Player player);
+    //public abstract int askQuestionMoneyDrop(Question nextQuestion, Player player);
 }

@@ -41,7 +41,8 @@ public class MoneyDropLeader extends Director {
         return Q[numberOfRound][randomNumber];
     }
 
-    public int askQuestionDrop(Question Q, Player p) {
+
+    public int askQuestionMoneyDrop(Question Q, Player p) {
         HashSet<String> answerSet = new HashSet<>(); //elements will be added in random order
         answerSet.add(Q.correctAnswer);
         answerSet.add(Q.answer1);
